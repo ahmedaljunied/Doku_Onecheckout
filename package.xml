@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package>
+    <name>Doku_Onecheckout</name>
+    <version>0.0.3</version>
+    <stability>alpha</stability>
+    <license>GNU General Public License (GPL)</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Extension to pay using DOKU Payment Gateway via OneCheckout API</summary>
+    <description>Support payment methods:&#xD;
+1. DOKU Wallet&#xD;
+2. Credit Card&#xD;
+3. Mandiri Clickpay&#xD;
+4. BCA Klikpay&#xD;
+5. BRI e-Pay&#xD;
+6. Permata VA&#xD;
+7. Sinarmas Bank VA &#xD;
+8. Mandiri Bill Payment&#xD;
+9. Alfa Group&#xD;
+&#xD;
+Support features:&#xD;
+1. Installment BNI&#xD;
+2. Installment Mandiri&#xD;
+3. Tokenization&#xD;
+4. Recurring</description>
+    <notes>0.0.1&#xD;
+Creates table onecheckout_transactions&#xD;
+Show configuration and channel options on back end&#xD;
+Show payment form at front end&#xD;
+Redirect to DOKU and receive Notification and Redirect Back, with also Check Status&#xD;
+0.0.2&#xD;
+Update issue order status not changed in processing&#xD;
+Send email order &amp;amp; change status order&#xD;
+0.0.3&#xD;
+Update issue Permata VA flow when redirect back while payment code not paid yet</notes>
+    <authors><author><name>KDS</name><user>KDS</user><email>kds@wirekom.co.id</email></author><author><name>Rudy Thong</name><user>rudythong</user><email>rudy.thong@doku.com</email></author></authors>
+    <date>2015-10-30</date>
+    <time>07:54:35</time>
+    <contents><target name="magecommunity"><dir name="Doku"><dir name="Onecheckout"><dir name="Block"><file name="Disabled.php" hash="e92ed2f104e17c597e322fdfc1882453"/><file name="Form.php" hash="5c4177618197847e24881074863a5957"/><file name="Identify.php" hash="ae5209be141303a0187db9f525e694b0"/><file name="Info.php" hash="ce89bfdd4557fa1581059c2c9458ecad"/><file name="Inquiry.php" hash="526e9c1aee2cd09c6cd33a7637790df5"/><file name="Notify.php" hash="6c5284b7981b238b06ae0a8c78ed722a"/><file name="Payment.php" hash="495d6fded556dfb2e2868b86fc8e36e0"/><file name="Result.php" hash="a2989744976c1c1a1a5d26a6aa93c114"/><file name="Review.php" hash="0f00eacb5603951c6f0ffd9035ba4b57"/></dir><dir name="Helper"><file name="Data.php" hash="0fcf22da4a91b4e8b2e33f6bd4685866"/></dir><dir name="Model"><file name="Abstract.php" hash="a923eac039ce11645e80f00a47e2e2de"/><file name="Alfagroup.php" hash="6f1a79392f3e35a8962f953b2aac77bd"/><file name="Allchannel.php" hash="672e24a612eedea23abeba4ed7f4f677"/><file name="Bcaklikpayaccount.php" hash="e2d376ed23ec53466affc3fbbb136559"/><file name="Bcaklikpaycard.php" hash="af3ecef9f14d55c973cfc361ffa49946"/><file name="Briepay.php" hash="2f841323089ff961945a82850ffd0a74"/><file name="Cimbclicks.php" hash="cffa0cb0b3b6fbbdc1636304f4b2abaa"/><file name="Creditcard.php" hash="566880b8942358fedc6ac675ce7b9194"/><file name="Dokuwallet.php" hash="a0808f5690aa0cee0ed7ed1cf6e00e06"/><file name="Emailtemplatelist.php" hash="9a697ff5f15874f599772d84c7a7129f"/><file name="Event.php" hash="4f9e214bb83ce362a311ae686eea665e"/><file name="Installmentbni.php" hash="a4eeceba0a4c25830cbe50f2a1e5b1e4"/><file name="Installmentmandiri.php" hash="c3096ac1a68f3d139b8dd654c20ee05c"/><file name="Mandiribillpayment.php" hash="507f4d52d92ba32e6f9558d79a34e459"/><file name="Mandiriclickpay.php" hash="396744b8c4f17720e1d55104dfaa93e2"/><file name="Observer.php" hash="ac9b3008479d3a8102432eba971c2cd7"/><file name="Permatava.php" hash="0dfdb2e2ff6de68b9252cb44f36e9a06"/><file name="Recurring.php" hash="0d506e09279f5266df451ee100953a1b"/><dir name="Resource"><dir name="Transactions"><file name="Collection.php" hash="dd74f805f5d6e08652328e33164a8d04"/></dir><file name="Transactions.php" hash="82c9721f6cad303131f474e7780569be"/></dir><file name="Sinarmasva.php" hash="3273be943952f0974c23a832f8cb3d18"/><dir name="System"><dir name="Config"><dir name="Source"><dir name="Dropdown"><file name="Values.php" hash="c48b1d4215b26b4384762735db38e6e8"/><file name="Values2.php" hash="abc3ea43d3483bccf35f92282f8daa09"/><file name="Values3.php" hash="379e3e8f834abdeff19423bf31976f96"/></dir></dir></dir></dir><file name="Tokenization.php" hash="bf8abd75631d3ea00100d7c39cf7dcdb"/><file name="Transactions.php" hash="81c85c67734ef14a7d44be7fc01d6907"/></dir><dir name="controllers"><file name="IndexController.php" hash="b78177635b045bee3724b1854ee01eb6"/></dir><dir name="etc"><file name="adminhtml.xml" hash="aceb6652ab94df408908a28472eaec0c"/><file name="config.xml" hash="6c82aac19ad4fe6bf4c3b45d9c997135"/><file name="system.xml" hash="8e800bbfaad8f0dc06d464478e6c411b"/></dir><dir name="sql"><dir name="onecheckout_setup"><file name="install-0.0.1.php" hash="5ff19b1c695e0d38a0570df5a0d30a7c"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="onecheckout.xml" hash="c65692a6ae1b1208eb664405f9b53e7d"/></dir><dir name="template"><dir name="onecheckout"><file name="form.phtml" hash="fd5a622b6f283a6a8d1ceea8776be37c"/><file name="info.phtml" hash="b5bc44fa1d2ba017e550c084331f6ba5"/><file name="payment.phtml" hash="6aea8910bcdf86bfb6abfa97b6d22ea7"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Doku_Onecheckout.xml" hash="fbc8e76f81d1d597a9a859f557c133b9"/></dir></target><target name="mageskin"><dir name="frontend"><dir name="base"><dir name="default"><dir name="images"><dir name="onecheckout"><file name="doku.png" hash="40c7ba3bee4aa1b188863fbfbb778d82"/><file name="onecheckout_alfagroup.png" hash="62cdec74f0bc37fda9c85c7e82996af9"/><file name="onecheckout_allchannel.png" hash="40c7ba3bee4aa1b188863fbfbb778d82"/><file name="onecheckout_bcaklikpayaccount.jpg" hash="a643703e411f8b7114996c35c61662b2"/><file name="onecheckout_bcaklikpaycard.jpg" hash="a643703e411f8b7114996c35c61662b2"/><file name="onecheckout_briepay.jpg" hash="9ec4599160030df3e18685a8779845f4"/><file name="onecheckout_cimbclicks.jpg" hash="8f32742e6fad34dcf639bb9f8fc1b291"/><file name="onecheckout_creditcard.png" hash="1beafe384fb0e1fa2e3b4b86a32838d3"/><file name="onecheckout_permatava.jpg" hash="af5ab641a571599a0cfb803c3ccba569"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.13</min><max>5.6.13</max></php></required></dependencies>
+</package>

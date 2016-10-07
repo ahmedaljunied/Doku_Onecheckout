@@ -1,0 +1,13 @@
+<?php
+/**
+ * Block Info in order review before place order
+ *
+ * @author KDS
+ */
+?>
+<?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?><br />
+<?php if ($this->getInfo()->getLastTransId() == ''): ?>
+    <em>You will be redirected to secure payment page</em>
+<?php else: ?>
+    <?php echo 'Transaction ID: ' . $this->escapeHtml($this->getInfo()->getLastTransId()) ?><br />
+<?php endif; ?>

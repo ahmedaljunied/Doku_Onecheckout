@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <report>
+            <children>
+                <salesroot>
+                    <children>
+                        <onecheckout_report>
+                            <title>DOKU OneCheckout Log</title>
+                            <action>adminhtml/onecheckout_reports</action>
+                        </onecheckout_report>
+                    </children>
+                </salesroot>
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <onecheckout>
+                                        <title>DOKU Onecheckout Settings</title>
+                                    </onecheckout>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

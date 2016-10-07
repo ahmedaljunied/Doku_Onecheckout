@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <onecheckout_index_payment>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="onecheckout/payment" name="onecheckout_payment" template="onecheckout/payment.phtml" />
+        </reference>
+    </onecheckout_index_payment>
+</layout>

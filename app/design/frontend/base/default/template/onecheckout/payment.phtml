@@ -1,0 +1,23 @@
+<?php
+/**
+ * Payment page before redirect to DOKU
+ *
+ * @author KDS
+ */
+?>
+<b>Please wait ... <br/>Loading secure payment page ... </b>
+<?php $form = $this->getFormData(); ?>
+<form name="onecheckout" id="onecheckout_place_form" action="<?php echo $form['URL']; ?>" method="POST">
+	<?php foreach ($form as $name => $value): ?>
+		<?php if ($name !== 'URL'): ?>
+			<input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</form>
+
+<script type="text/javascript">
+    //<![CDATA[
+    var paymentform = document.getElementById('onecheckout_place_form');
+    window.onload = paymentform.submit();
+    //]]>
+</script>

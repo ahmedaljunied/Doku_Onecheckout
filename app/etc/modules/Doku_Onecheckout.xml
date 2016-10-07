@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Doku_Onecheckout>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Doku_Onecheckout>
+	</modules>
+</config>
