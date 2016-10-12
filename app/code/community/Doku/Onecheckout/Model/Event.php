@@ -175,7 +175,7 @@ class Doku_Onecheckout_Model_Event
 			if($xml->RESULTMSG == 'SUCCESS') $status = 'S';
 			else if($xml->RESULTMSG == 'FAILED') $status = 'F';
 			else if($xml->RESULTMSG == 'TRANSACTION_NOT_FOUND') $status = 'F';
-			else if($xml->RESULTMSG == 'UNPAID') $status = 'S';
+			else if($xml->RESULTMSG == 'UNPAID') $status = 'F';
 			else if($xml->RESULTMSG == 'ERROR') $status = 'F';
 			else $status = 'F';
 		} catch (Exception $e) {
