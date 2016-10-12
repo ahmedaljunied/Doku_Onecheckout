@@ -20,7 +20,7 @@ class Doku_Onecheckout_Model_Event
      * @var Mage_Sales_Model_Order
      */
     protected $_order = null;
-	
+
 	/**
      * Onecheckout stored transactions
      *
@@ -28,7 +28,7 @@ class Doku_Onecheckout_Model_Event
      */
     protected $_transactions = null;
 
-	
+
     /**
      * Event request data
      * @var array
@@ -83,13 +83,13 @@ class Doku_Onecheckout_Model_Event
             $msg = '';
 			if($params['RESULTMSG'] == 'SUCCESS') {
 				$msg = 'Payment success with approval code ' . $params['APPROVALCODE'] . '.';
-				$this->_processSale($msg);			
+				$this->_processSale($msg);
 			} else if($params['RESULTMSG'] == 'FAILED') {
 				$msg = 'Payment failed with response code ' . $params['RESPONSECODE'] . ' .';
 				$this->_processCancel($msg, 'DECLINED');
 			} else if($params['STATUSTYPE'] !== 'P') {
 				$msg = 'Payment failed with status type ' . $params['STATUSTYPE'] . ' .';
-				$this->_processCancel($msg, 'REVERSAL');			
+				$this->_processCancel($msg, 'REVERSAL');
 			}
             return 'Continue';
         } catch (Mage_Core_Exception $e) {
@@ -100,7 +100,7 @@ class Doku_Onecheckout_Model_Event
             return 'Stop ' . $e->getMessage();
         }
     }
-	
+
     /**
      * Redirect back from DOKU Payment Page
      *
@@ -121,7 +121,7 @@ class Doku_Onecheckout_Model_Event
 			$this->checkStatusEvent();
 			if($this->_transactions->getStatus() == 'S') {
 				$msg = 'Payment success with approval code ' . $params['APPROVALCODE'] . '.';
-				$this->_processSale($msg);			
+				$this->_processSale($msg);
 			} else if($this->_transactions->getStatus() == 'F') {
 				Mage::log('result failed');
 				$msg = '';
@@ -129,9 +129,9 @@ class Doku_Onecheckout_Model_Event
 					$msg = 'Payment failed after check status with response code ' . $params['RESPONSECODE'] . ' .';
 					$this->_processCancel($msg, 'DECLINED');
 				} else {
-					$msg = 'Please pay with payment code ' . $params['PAYMENTCODE'] . ' .';				
+					$msg = 'Please pay with payment code ' . $params['PAYMENTCODE'] . ' .';
 				}
-				Mage::log($msg);				
+				Mage::log($msg);
 				Mage::throwException($msg);
 			}
 		} else {
@@ -142,7 +142,7 @@ class Doku_Onecheckout_Model_Event
 		}
 	        return $this->_order->getQuoteId();
     }
-	
+
 	public function checkStatusEvent() {
 		$status = null;
         $mallid = Mage::getStoreConfig('onecheckout/settings/config_mallid');
@@ -150,7 +150,7 @@ class Doku_Onecheckout_Model_Event
         $chainnumber = Mage::getStoreConfig('onecheckout/settings/config_chainnumber');
 		$transidmerchant = $this->_transactions->getInvoiceNo();
 		$sessionid = $this->_transactions->getSessionId();
-		$currency = $this->_transactions->getCurrency(); 
+		$currency = $this->_transactions->getCurrency();
 		$purchasecurrency = $this->_transactions->getPurchaseCurrency();
 		if($currency == '360') {
 			$words = sha1($mallid . $sharedkey . $transidmerchant);
@@ -175,7 +175,7 @@ class Doku_Onecheckout_Model_Event
 			if($xml->RESULTMSG == 'SUCCESS') $status = 'S';
 			else if($xml->RESULTMSG == 'FAILED') $status = 'F';
 			else if($xml->RESULTMSG == 'TRANSACTION_NOT_FOUND') $status = 'F';
-			else if($xml->RESULTMSG == 'UNPAID') $status = 'F';
+			else if($xml->RESULTMSG == 'UNPAID') $status = 'S';
 			else if($xml->RESULTMSG == 'ERROR') $status = 'F';
 			else $status = 'F';
 		} catch (Exception $e) {
@@ -186,7 +186,7 @@ class Doku_Onecheckout_Model_Event
 			$data['state'] = '4';
 			$data['check_status_time'] = Mage::getModel('core/date')->date();
 			$this->_transactions->addData($data);
-			$this->_transactions->save();				
+			$this->_transactions->save();
 		}
 	}
 
@@ -231,7 +231,7 @@ class Doku_Onecheckout_Model_Event
             return 'http://staging.doku.com/Suite/CheckStatus';
 		}
     }
-    
+
     /**
      * Processed order cancelation
      * @param string $msg Order history message
@@ -244,10 +244,10 @@ class Doku_Onecheckout_Model_Event
 		$data['status'] = 'F';
 		if($via == 'DECLINED') {
 			$data['state'] = '2';
-			$data['notify_time'] = Mage::getModel('core/date')->date();		
+			$data['notify_time'] = Mage::getModel('core/date')->date();
 		} else if($via == 'CANCEL') {
 			$data['state'] = '6';
-			$data['cancel_time'] = Mage::getModel('core/date')->date();		
+			$data['cancel_time'] = Mage::getModel('core/date')->date();
 		} else if($via == 'REVERSAL') {
 			$data['state'] = '7';
 			$data['reversal_time'] = Mage::getModel('core/date')->date();
@@ -274,13 +274,13 @@ class Doku_Onecheckout_Model_Event
 		$data['notify_time'] = Mage::getModel('core/date')->date();
 		$this->_transactions->addData($data);
 		$this->_transactions->save();
-		
+
 		// send new order email
 		$this->_order->sendOrderUpdateEmail();
 		$this->_order->setEmailSent(true);
 	        $this->_order->save();
     }
-	
+
 	protected function _constructData() {
 		$data = array (
 			'response_code' => $this->getEventData('RESPONSECODE'),
@@ -332,7 +332,7 @@ class Doku_Onecheckout_Model_Event
         if (empty($params)) {
             Mage::throwException('Request does not contain any elements.');
         }
-		
+
 		//check words
         $mallid = Mage::getStoreConfig('onecheckout/settings/config_mallid');
         $sharedkey = Mage::getStoreConfig('onecheckout/settings/config_sharedkey');
@@ -352,31 +352,31 @@ class Doku_Onecheckout_Model_Event
         if (empty($params['TRANSIDMERCHANT'])) {
             Mage::throwException('Missing order ID.');
         }
-		
+
         // load order for further validation
 		$this->setOrder($params['TRANSIDMERCHANT']);
         if (!$this->_order->getId()) {
             Mage::throwException('Order not found.');
         }
-		
+
 		// load transaction for further use
 		$this->setTransaction($params['TRANSIDMERCHANT']);
 		if (!$this->_transactions->getId()) {
 			Mage::throwException('Invoice not found.');
 		}
-		
+
 		// check transaction amount if currency matches
 		if (number_format(round($this->_order->getGrandTotal(), 2), 2, '.', '') != $params['AMOUNT']) {
 			Mage::throwException('Transaction amount does not match.');
 		}
         return $params;
     }
-	
+
 	public function setTransaction($invoice_no) {
 		$this->_transactions = Mage::getModel('onecheckout/transactions')->load($invoice_no, 'invoice_no');
 		return $this;
 	}
-	
+
 	public function setOrder($order_no) {
 		$this->_order = Mage::getModel('sales/order')->loadByIncrementId($order_no);
 		return $this;
