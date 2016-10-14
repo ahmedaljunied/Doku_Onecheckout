@@ -129,7 +129,7 @@ class Doku_Onecheckout_Model_Event
 					$msg = 'Payment failed after check status with response code ' . $params['RESPONSECODE'] . ' .';
 					$this->_processCancel($msg, 'DECLINED');
 				} else {
-					$msg = 'Please pay with payment code ' . $params['PAYMENTCODE'] . ' .';
+					$msg = 'Thank you for your purchase. Please pay with payment code ' . $params['PAYMENTCODE'] . ' .';
 				}
 				Mage::log($msg);
 				Mage::throwException($msg);
