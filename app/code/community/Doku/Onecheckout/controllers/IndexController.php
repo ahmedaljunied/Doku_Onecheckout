@@ -1,6 +1,6 @@
 <?php
 
-class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action {        
+class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action {
 
     public function indexAction() {
         echo 'Hello Index!';
@@ -26,7 +26,7 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
     {
         return Mage::getSingleton('checkout/session');
     }
-	
+
 	/**
 	 * Preparing redirect to DOKU Payment Page
 	 * STATE = 1
@@ -45,6 +45,29 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
                 'The customer was redirected to Payment Gateway.');
             $order->save();
             $order->sendNewOrderEmail();
+
+            // This Additional Code Written By Bayu
+            // Code for send data to seller dashboard
+            $site_name = "http://vendor.tinkerlust.com";
+
+            $name = $order->getBillingAddress()->getName();
+            $email = $order_billing_address->getEmail();
+            $order_no = $order->loadByIncrementId($session->getLastRealOrderId());
+            $total = $this->is_string($totalPrice);
+            $transfer_no = 212;
+            $transfer_bank = "DOKU";
+
+            $name = urlencode($name);
+            $email = urlencode($email);
+            $order_no = urlencode($order_no);
+            $total = urlencode($total);
+            $transfer_no = urlencode($transfer_no);
+            $transfer_bank = urlencode($transfer_bank);
+
+            $url_go = "$site_name/api_paymentconfirm.php?payment_sd=yes&name=$name&email=$email&order_no=$order_no&total=$total&transfer_no=$transfer_no&transfer_bank=$transfer_bank";
+            $content = Mage::helper('kredivopayment')->bacaHTML($url_go);
+            //echo $content;
+            // Code for send data to seller dashboard ends
 
             $session->setOnecheckoutQuoteId($session->getQuoteId());
             $session->setOnecheckoutRealOrderId($session->getLastRealOrder()->getId());
@@ -75,11 +98,11 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
 	Mage::log('Result = ' . $message);
     	Mage::log('End notify');
     }
-	
+
 	/**
 	 * Receiving Redirect Back from DOKU Payment Page
 	 * STATE = 3
-	 * STATE = 6 <= Cancel 
+	 * STATE = 6 <= Cancel
 	 *
 	 */
     public function resultAction() {
@@ -100,7 +123,7 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
     	Mage::log('End redirect back');
         $this->_redirect('checkout/cart');
     }
-	
+
 	/**
 	 * Triggering to check status for all pending transaction (No Response Message from DOKU) for indirect payment
 	 * STATE = 4
@@ -121,9 +144,9 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
 				->setTransaction($transactionArray['invoice_no']);
 			$event->checkStatusEvent();
 		}
-        echo 'Continue';	
+        echo 'Continue';
 	}
-	
+
 	/**
 	 * Receiving Identify from DOKU server
 	 * STATE = 5
@@ -138,7 +161,7 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
         $this->getResponse()->setBody($message);
     	Mage::log('End identify');
     }
-	
+
 	/**
 	 * Receiving Review from DOKU server
 	 * STATE = 8
@@ -153,7 +176,7 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
         }
         echo '</dl>';
     }
-	
+
 	/**
 	 * Receiving Inquiry from DOKU server
 	 * STATE = 9
