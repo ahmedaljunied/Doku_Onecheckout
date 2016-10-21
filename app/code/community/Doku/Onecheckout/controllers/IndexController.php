@@ -38,13 +38,6 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
             $session = $this->_getCheckout();
             $order = Mage::getModel('sales/order');
             $order->loadByIncrementId($session->getLastRealOrderId());
-            if (!$order->getId()) {
-                Mage::throwException('No order for processing found');
-            }
-            $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
-                'The customer was redirected to Payment Gateway.');
-            $order->save();
-            $order->sendNewOrderEmail();
 
             // This Additional Code Written By Bayu
             // Code for send data to seller dashboard
@@ -68,6 +61,14 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
             $content = Mage::helper('kredivopayment')->bacaHTML($url_go);
             //echo $content;
             // Code for send data to seller dashboard ends
+
+            if (!$order->getId()) {
+                Mage::throwException('No order for processing found');
+            }
+            $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
+                'The customer was redirected to Payment Gateway.');
+            $order->save();
+            $order->sendNewOrderEmail();
 
             $session->setOnecheckoutQuoteId($session->getQuoteId());
             $session->setOnecheckoutRealOrderId($session->getLastRealOrder()->getId());
