@@ -99,36 +99,6 @@ class Doku_Onecheckout_IndexController extends Mage_Core_Controller_Front_Action
         } catch(Exception $e) {
             Mage::logException($e);
         }
-        
-        // This Additional Code Written By Bayu
-        // Code for send data to seller dashboard
-        $order_param = $this->getRequest()->getParams();
-        $session = $this->_getCheckout();
-        $order = Mage::getModel('sales/order');
-        $order->loadByIncrementId($session->getLastRealOrderId());
-        $orderId = $order->getId();
-        //$order   = Mage::getModel('sales/order')->loadByIncrementId($orderId);
-
-        $site_name = "http://vendor.tinkerlust.com";
-
-        $name = $order->getCustomerName();
-        $email = $order->getCustomerEmail();
-        $order_no = $orderId;
-        $total = (int)$order->getGrandTotal();
-        $transfer_no = 212;
-        $transfer_bank = "DOKU";
-
-        $name = urlencode($name);
-        $email = urlencode($email);
-        $order_no = urlencode($order_no);
-        $total = urlencode($total);
-        $transfer_no = urlencode($transfer_no);
-        $transfer_bank = urlencode($transfer_bank);
-
-        $url_go = "$site_name/api_paymentconfirm.php?payment_sd=yes&name=$name&email=$email&order_no=$order_no&total=$total&transfer_no=$transfer_no&transfer_bank=$transfer_bank";
-        $content = Mage::helper('kredivopayment')->bacaHTML($url_go);
-        //echo $content;
-        // Code for send data to seller dashboard ends
 
     	Mage::log('End redirect back');
         $this->_redirect('checkout/cart');

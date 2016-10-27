@@ -119,7 +119,7 @@ class Doku_Onecheckout_Model_Event
 		if($responseCode !== $this->getEventData('STATUSCODE')) {
 			//SEND CHECK STATUS
 			$this->checkStatusEvent();
-			if($this->_transactions->getStatus() == 'S') {
+			if(($this->_transactions->getStatus() == 'S') && ($params['STATUSCODE'] != '5511')){
 				$msg = 'Payment success with approval code ' . $params['APPROVALCODE'] . '.';
 				$this->_processSale($msg);
 			} else if($this->_transactions->getStatus() == 'F') {
@@ -274,6 +274,29 @@ class Doku_Onecheckout_Model_Event
 		$data['notify_time'] = Mage::getModel('core/date')->date();
 		$this->_transactions->addData($data);
 		$this->_transactions->save();
+
+		// This Additional Code Written By Bayu
+		// Code for send data to seller dashboard
+		$site_name = "http://vendor.tinkerlust.com";
+
+		$name = $this->_order->getCustomerName();
+		$email = $this->_order->getCustomerEmail();
+		$order_no = $this->_order->getId();
+		$total = (int)$this->_order->getGrandTotal();
+		$transfer_no = $this->_transactions->getSessionId();
+		$transfer_bank = "DOKU";
+
+		$name = urlencode($name);
+		$email = urlencode($email);
+		$order_no = urlencode($order_no);
+		$total = urlencode($total);
+		$transfer_no = urlencode($transfer_no);
+		$transfer_bank = urlencode($transfer_bank);
+
+		$url_go = "$site_name/api_paymentconfirm.php?payment_sd=yes&name=$name&email=$email&order_no=$order_no&total=$total&transfer_no=$transfer_no&transfer_bank=$transfer_bank";
+		$content = Mage::helper('kredivopayment')->bacaHTML($url_go);
+		//echo $content;
+		// Code for send data to seller dashboard ends
 
 		// send new order email
 		$this->_order->sendOrderUpdateEmail();
