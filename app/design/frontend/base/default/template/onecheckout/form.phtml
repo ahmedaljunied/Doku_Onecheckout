@@ -24,7 +24,9 @@
 				</span>
 			</div>
         <?php elseif ($_code == 'onecheckout_creditcard'): ?>
-            You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order. <br />Biaya Layanan 3% dari harga barang dan ongkos kirim + Rp2000
+            You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order. <br />Biaya Layanan 3% dari harga barang dan ongkos kirim + Rp2000.
+        <?php elseif ($_code == 'onecheckout_permatava'): ?>
+            You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order. <br />Biaya Layanan Rp5000.
         <?php else: ?>
             You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order.
         <?php endif; ?>
