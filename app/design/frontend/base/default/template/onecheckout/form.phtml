@@ -10,9 +10,9 @@
     <li>
         <?php if ($_code == 'onecheckout_bcaklikpay'): ?>
             You will be redirected to BCA KlikPay payment page when you place an order.
-		<?php elseif ($_code == 'onecheckout_installmentbni' || $_code == 'onecheckout_installmentmandiri'): ?>
+		    <?php elseif ($_code == 'onecheckout_installmentbni' || $_code == 'onecheckout_installmentmandiri'): ?>
             You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order.
-			<?php $installment_options = $this->getInstallmentOptions($_code); ?>
+      <?php $installment_options = $this->getInstallmentOptions($_code); ?>
 			<div>
 				<label>Installment Options</label>
 				<span>
@@ -23,6 +23,8 @@
 					</select>
 				</span>
 			</div>
+        <?php elseif ($_code == 'onecheckout_creditcard'): ?>
+            You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order. <br />Biaya Layanan 3% dari harga barang dan ongkos kirim + Rp2000
         <?php else: ?>
             You will be redirected to <a onclick="window.open(this.href, 'http://www.doku.com')">DOKU</a> secure payment page when you place an order.
         <?php endif; ?>
@@ -37,4 +39,3 @@
     <?php endif; ?>
 
 </ul>
-
