@@ -85,10 +85,12 @@ class Doku_Onecheckout_Model_Event
 				$msg = 'Payment success with approval code ' . $params['APPROVALCODE'] . '.';
 				$this->_processSale($msg);
 			} else if($params['RESULTMSG'] == 'FAILED') {
-				$msg = 'Payment failed with response code ' . $params['RESPONSECODE'] . ' .';
+				//$msg = 'Payment failed with response code ' . $params['RESPONSECODE'] . ' .';
+				$msg = 'Transaksi anda gagal';
 				$this->_processCancel($msg, 'DECLINED');
 			} else if($params['STATUSTYPE'] !== 'P') {
-				$msg = 'Payment failed with status type ' . $params['STATUSTYPE'] . ' .';
+				//$msg = 'Payment failed with status type ' . $params['STATUSTYPE'] . ' .';
+				$msg = 'Transaksi anda gagal';
 				$this->_processCancel($msg, 'REVERSAL');
 			}
             return 'Continue';
@@ -120,13 +122,15 @@ class Doku_Onecheckout_Model_Event
 			//SEND CHECK STATUS
 			$this->checkStatusEvent();
 			if(($this->_transactions->getStatus() == 'S') && ($params['STATUSCODE'] != '5511')){
-				$msg = 'Payment success with approval code ' . $params['APPROVALCODE'] . '.';
+				//$msg = 'Payment success with approval code ' . $params['APPROVALCODE'] . '.';
+				$msg = 'Transaksi anda gagal';
 				$this->_processSale($msg);
 			} else if($this->_transactions->getStatus() == 'F') {
 				Mage::log('result failed');
 				$msg = '';
 				if(in_array($this->getEventData('PAYMENTCHANNEL'), $this->_CHANNEL_DIRECT)) {
-					$msg = 'Payment failed after check status with response code ' . $params['RESPONSECODE'] . ' .';
+					//$msg = 'Payment failed after check status with response code ' . $params['RESPONSECODE'] . ' .';
+					$msg = 'Transaksi anda gagal';
 					$this->_processCancel($msg, 'DECLINED');
 				} else {
 					$msg = 'Thank you for your purchase. Please pay with payment code ' . $params['PAYMENTCODE'] . ' .';
@@ -136,7 +140,8 @@ class Doku_Onecheckout_Model_Event
 			}
 		} else {
 			if($this->_transactions->getStatus() == 'F') {
-				$msg = 'Payment failed with response code ' . $this->_transactions->getResponseCode() . ' .';
+				//$msg = 'Payment failed with response code ' . $this->_transactions->getResponseCode() . ' .';
+				$msg = 'Transaksi anda gagal';
 				Mage::throwException($msg);
 			}
 		}
