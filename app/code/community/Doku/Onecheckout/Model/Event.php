@@ -299,7 +299,7 @@ class Doku_Onecheckout_Model_Event
 		$transfer_bank = urlencode($transfer_bank);
 
 		$url_go = "$site_name/api_paymentconfirm.php?payment_sd=yes&name=$name&email=$email&order_no=$order_no&total=$total&transfer_no=$transfer_no&transfer_bank=$transfer_bank";
-		$content = Mage::helper('kredivopayment')->bacaHTML($url_go);
+		$content = Mage::helper('onecheckout')->bacaHTML($url_go);
 		//echo $content;
 		// Code for send data to seller dashboard ends
 
