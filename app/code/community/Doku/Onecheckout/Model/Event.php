@@ -286,7 +286,7 @@ class Doku_Onecheckout_Model_Event
 
 		$name = $this->_order->getCustomerName();
 		$email = $this->_order->getCustomerEmail();
-		$order_no = $this->_order->getId();
+		$order_no = $this->_order->getIncrementId();
 		$total = (int)$this->_order->getGrandTotal();
 		$transfer_no = $this->_transactions->getSessionId();
 		$transfer_bank = "DOKU";
